@@ -10,10 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  simple_logger:
-  flutter_hooks:
-  hooks_riverpod:
-  freezed_annotation:
+  simple_logger: ^1.9.0
+  flutter_hooks: ^0.18.3
+  hooks_riverpod: ^2.0.0-dev.5
+  freezed_annotation: ^1.1.0
 
   cupertino_icons: ^1.0.2
 
@@ -24,7 +24,7 @@ dev_dependencies:
   pedantic_mono:
   json_serializable:
   build_runner:
-  freezed:
+  freezed: ^1.1.1
 
 flutter:
   uses-material-design: true
