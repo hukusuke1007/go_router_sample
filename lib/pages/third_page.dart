@@ -1,66 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/pages/second_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 
-class FirstPage extends HookWidget {
-  const FirstPage({
-    required this.title,
+class ThirdPage extends HookWidget {
+  const ThirdPage({
     Key? key,
   }) : super(key: key);
 
-  final String title;
-
-  static String get pageName => 'first_page';
+  static String get pageName => 'third_page';
 
   @override
   Widget build(BuildContext context) {
     final countState = useState(0);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          style: const TextStyle(color: Colors.white),
+        title: const Text(
+          'ThirdPage',
+          style: TextStyle(color: Colors.white),
         ),
+        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'FirstPage ${countState.value}',
+              'ThirdPage ${countState.value}',
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: RoundedButton(
-                width: 200,
+                width: 120,
                 height: 40,
                 child: const Text(
-                  'Go SecondPage',
+                  'Go Back',
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.push(
-                    '/${SecondPage.pageName}',
-                    extra: SecondPageParams(
-                      '$titleから',
-                    ),
-                  );
+                  context.pop();
                 },
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: RoundedButton(
-                width: 200,
+                width: 120,
                 height: 40,
                 child: const Text(
-                  'Go SecondPage Modal',
+                  'Go Root',
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  // context.go('/${SecondPage.pageName}');
+                  ///
                 },
               ),
             ),

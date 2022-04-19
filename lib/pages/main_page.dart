@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router_sample/pages/first_page.dart';
-import 'package:go_router_sample/pages/second_page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends HookConsumerWidget {
   const MainPage({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  final _pageViewController = PageController();
-  int _selectedIndex = 0;
+  static String get pageName => 'main_page';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pageViewController = usePageController();
+    final selectedIndexState = useState(0);
+
     return Scaffold(
       body: PageView(
-        controller: _pageViewController,
+        controller: pageViewController,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-          FirstPage(),
-          SecondPage(),
+          FirstPage(
+            title: 'タブ1',
+          ),
+          FirstPage(
+            title: 'タブ2',
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -40,12 +42,10 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndexState.value,
         onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          _pageViewController.jumpToPage(index);
+          selectedIndexState.value = index;
+          pageViewController.jumpToPage(index);
         },
       ),
     );

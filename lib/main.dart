@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router_sample/pages/main_page.dart';
+import 'package:go_router_sample/router.dart';
 import 'package:go_router_sample/utils/logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,11 +15,32 @@ Future<void> main() async {
   );
 }
 
-class App extends StatelessWidget {
+class App extends HookConsumerWidget {
   const App({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(
+      () {
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
+          /// 現在表示されているページをトレース
+          router.addListener(() {
+            logger.info(router.location);
+          });
+        });
+        return null;
+      },
+      const [],
+    );
+
+    return MaterialApp.router(
+      title: 'go_router sample',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+    );
     return MaterialApp(
       title: 'go_router sample',
       theme: ThemeData(

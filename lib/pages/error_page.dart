@@ -1,42 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/pages/third_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 
-@immutable
-class SecondPageParams {
-  const SecondPageParams(this.title);
-  final String title;
-}
-
-class SecondPage extends HookWidget {
-  const SecondPage(
-    this.params, {
+class ErrorPage extends HookWidget {
+  const ErrorPage({
     Key? key,
   }) : super(key: key);
 
-  static String get pageName => 'second_page';
-
-  final SecondPageParams params;
+  static String get pageName => 'error_page';
 
   @override
   Widget build(BuildContext context) {
-    final countState = useState(0);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'SecondPage ${params.title}',
-          style: const TextStyle(color: Colors.white),
+        title: const Text(
+          'ErrorPage',
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.red,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'SecondPage ${countState.value}',
+            const Text(
+              'ErrorPage',
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
@@ -44,24 +33,16 @@ class SecondPage extends HookWidget {
                 width: 200,
                 height: 40,
                 child: const Text(
-                  'Go ThirdPage',
+                  'Go Back',
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.push('/${ThirdPage.pageName}');
+                  context.pop();
                 },
               ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: null,
-        onPressed: () {
-          countState.value += 1;
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
