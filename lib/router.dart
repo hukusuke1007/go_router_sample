@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/pages/error_page.dart';
 import 'package:go_router_sample/pages/first_page.dart';
@@ -7,6 +6,7 @@ import 'package:go_router_sample/pages/modal_page.dart';
 import 'package:go_router_sample/pages/second_page.dart';
 import 'package:go_router_sample/pages/third_page.dart';
 import 'package:go_router_sample/utils/logger.dart';
+import 'package:go_router_sample/widgets/modal_transition_page.dart';
 
 final router = GoRouter(
   debugLogDiagnostics: true,
@@ -44,27 +44,9 @@ final router = GoRouter(
     /// モーダル遷移
     GoRoute(
       path: '/${ModalPage.pageName}',
-      pageBuilder: (_, state) => CustomTransitionPage<void>(
+      pageBuilder: (_, state) => ModalTransitionPage<void>(
         child: const ModalPage(),
         key: state.pageKey,
-        transitionDuration: const Duration(milliseconds: 250),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return SlideTransition(
-            position: animation
-                .drive(
-                  CurveTween(
-                    curve: const Interval(0, 1, curve: Curves.fastOutSlowIn),
-                  ),
-                )
-                .drive(
-                  Tween(
-                    begin: const Offset(0, 1),
-                    end: Offset.zero,
-                  ),
-                ),
-            child: child,
-          );
-        },
       ),
     ),
   ],
