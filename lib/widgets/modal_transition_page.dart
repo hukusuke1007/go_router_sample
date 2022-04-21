@@ -10,7 +10,8 @@ class ModalTransitionPage<T> extends CustomTransitionPage<T> {
     LocalKey? key,
   }) : super(
           transitionsBuilder: _transitionsBuilder,
-          transitionDuration: const Duration(milliseconds: 250),
+          transitionDuration: const Duration(milliseconds: 300),
+          fullscreenDialog: true,
           key: key,
           name: name,
           arguments: arguments,
