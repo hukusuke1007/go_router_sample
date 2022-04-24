@@ -38,8 +38,12 @@ class App extends HookConsumerWidget {
         primarySwatch: Colors.blue,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
-            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.android:
+                CupertinoPageTransitionsBuilder(), // AndroidもiOSと同じ遷移アニメーションにする
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
           },
         ),
       ),
