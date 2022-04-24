@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:go_router_sample/pages/main_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 
 class ThirdPage extends HookWidget {
@@ -9,6 +10,7 @@ class ThirdPage extends HookWidget {
   }) : super(key: key);
 
   static String get pageName => 'third_page';
+  static String get pagePath => 'third_page';
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class ThirdPage extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'ThirdPage',
+          'ページ3',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepOrange,
@@ -52,7 +54,7 @@ class ThirdPage extends HookWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  ///
+                  context.go(MainPage.pagePath);
                 },
               ),
             ),

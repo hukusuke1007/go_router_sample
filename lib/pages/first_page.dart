@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/pages/modal_page.dart';
 import 'package:go_router_sample/pages/second_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 
@@ -14,6 +13,7 @@ class FirstPage extends HookWidget {
   final String title;
 
   static String get pageName => 'first_page';
+  static String get pagePath => '$pageName/:title';
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,10 @@ class FirstPage extends HookWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.push('/${ModalPage.pageName}');
+                  context.pushNamed(
+                    SecondPage.modalPageName,
+                    params: {'title': '$titleからモーダル表示'},
+                  );
                 },
               ),
             ),

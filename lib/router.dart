@@ -2,7 +2,6 @@ import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/pages/error_page.dart';
 import 'package:go_router_sample/pages/first_page.dart';
 import 'package:go_router_sample/pages/main_page.dart';
-import 'package:go_router_sample/pages/modal_page.dart';
 import 'package:go_router_sample/pages/second_page.dart';
 import 'package:go_router_sample/pages/third_page.dart';
 import 'package:go_router_sample/utils/logger.dart';
@@ -17,9 +16,10 @@ final router = GoRouter(
       routes: [
         /// パラメータ
         GoRoute(
-          path: '${FirstPage.pageName}/:title',
+          name: FirstPage.pageName,
+          path: FirstPage.pagePath,
           builder: (_, state) {
-            final title = state.params['title'] ?? 'ノータイトル';
+            final title = state.params['title'] ?? '';
             return FirstPage(
               title: title,
             );
@@ -28,27 +28,38 @@ final router = GoRouter(
 
         /// エクストラパラメータ
         GoRoute(
-          path: SecondPage.pageName,
+          name: SecondPage.pageName,
+          path: SecondPage.getPathPath(SecondPage.pageName),
           builder: (_, state) {
             final params = state.extra! as SecondPageParams;
             return SecondPage(params);
           },
         ),
 
+        /// モーダル遷移
         GoRoute(
-          path: ThirdPage.pageName,
+          name: SecondPage.modalPageName,
+          path: SecondPage.getPathPath(
+            SecondPage.modalPageName,
+            existsParam: true,
+          ),
+          pageBuilder: (_, state) {
+            final title = state.params['title'] ?? '';
+            return ModalTransitionPage<void>(
+              child: SecondPage(
+                SecondPageParams(title),
+              ),
+              key: state.pageKey,
+            );
+          },
+        ),
+
+        GoRoute(
+          name: ThirdPage.pageName,
+          path: ThirdPage.pagePath,
           builder: (_, __) => const ThirdPage(),
         ),
       ],
-    ),
-
-    /// モーダル遷移
-    GoRoute(
-      path: '/${ModalPage.pageName}',
-      pageBuilder: (_, state) => ModalTransitionPage<void>(
-        child: const ModalPage(),
-        key: state.pageKey,
-      ),
     ),
   ],
   errorBuilder: (context, state) {

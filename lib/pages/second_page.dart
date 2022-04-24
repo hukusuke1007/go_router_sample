@@ -17,6 +17,12 @@ class SecondPage extends HookWidget {
   }) : super(key: key);
 
   static String get pageName => 'second_page';
+  static String get modalPageName => '${pageName}_with_modal';
+  static String getPathPath(
+    String pageName, {
+    bool existsParam = false,
+  }) =>
+      existsParam ? '$pageName/:title' : pageName;
 
   final SecondPageParams params;
 
@@ -26,7 +32,7 @@ class SecondPage extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'SecondPage ${params.title}',
+          'ページ2 ${params.title}',
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.indigo,

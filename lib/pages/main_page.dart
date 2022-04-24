@@ -9,6 +9,7 @@ class MainPage extends HookConsumerWidget {
   }) : super(key: key);
 
   static String get pageName => 'main_page';
+  static String get pagePath => '/';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
