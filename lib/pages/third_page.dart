@@ -10,7 +10,7 @@ class ThirdPage extends HookWidget {
   }) : super(key: key);
 
   static String get pageName => 'third_page';
-  static String get pagePath => 'third_page';
+  static String get pagePath => pageName;
 
   @override
   Widget build(BuildContext context) {

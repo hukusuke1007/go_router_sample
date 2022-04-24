@@ -11,7 +11,7 @@ final router = GoRouter(
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
-      path: '/',
+      path: MainPage.pagePath,
       builder: (_, __) => const MainPage(),
       routes: [
         /// パラメータ
@@ -26,7 +26,7 @@ final router = GoRouter(
           },
         ),
 
-        /// エクストラパラメータ
+        /// エクストラパラメータ + プッシュ遷移
         GoRoute(
           name: SecondPage.pageName,
           path: SecondPage.getPathPath(SecondPage.pageName),
@@ -36,7 +36,7 @@ final router = GoRouter(
           },
         ),
 
-        /// モーダル遷移
+        /// パラメータ + モーダル遷移
         GoRoute(
           name: SecondPage.modalPageName,
           path: SecondPage.getPathPath(
