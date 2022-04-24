@@ -14,7 +14,6 @@ final router = GoRouter(
       path: MainPage.pagePath,
       builder: (_, __) => const MainPage(),
       routes: [
-        /// パラメータ
         GoRoute(
           name: FirstPage.pageName,
           path: FirstPage.pagePath,
