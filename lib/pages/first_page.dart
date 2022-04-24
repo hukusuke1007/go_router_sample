@@ -42,8 +42,8 @@ class FirstPage extends HookWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.push(
-                    '/${SecondPage.pageName}',
+                  context.pushNamed(
+                    SecondPage.pageName,
                     extra: SecondPageParams(
                       '$titleから',
                     ),

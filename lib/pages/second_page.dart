@@ -54,7 +54,7 @@ class SecondPage extends HookWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.push('/${ThirdPage.pageName}');
+                  context.pushNamed(ThirdPage.pageName);
                 },
               ),
             ),
