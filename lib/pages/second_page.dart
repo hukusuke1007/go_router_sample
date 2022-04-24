@@ -18,7 +18,7 @@ class SecondPage extends HookWidget {
 
   static String get pageName => 'second_page';
   static String get modalPageName => '${pageName}_with_modal';
-  static String getPathPath(
+  static String getPagePath(
     String pageName, {
     bool existsParam = false,
   }) =>

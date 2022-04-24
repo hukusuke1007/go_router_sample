@@ -29,7 +29,7 @@ final router = GoRouter(
         /// エクストラパラメータ + プッシュ遷移
         GoRoute(
           name: SecondPage.pageName,
-          path: SecondPage.getPathPath(SecondPage.pageName),
+          path: SecondPage.getPagePath(SecondPage.pageName),
           builder: (_, state) {
             final params = state.extra! as SecondPageParams;
             return SecondPage(params);
@@ -39,7 +39,7 @@ final router = GoRouter(
         /// パラメータ + モーダル遷移
         GoRoute(
           name: SecondPage.modalPageName,
-          path: SecondPage.getPathPath(
+          path: SecondPage.getPagePath(
             SecondPage.modalPageName,
             existsParam: true,
           ),
