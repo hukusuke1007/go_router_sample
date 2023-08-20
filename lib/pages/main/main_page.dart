@@ -4,6 +4,38 @@ import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/tab/tab1_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+class MainRoute extends StatefulShellRouteData {
+  const MainRoute();
+
+  @override
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) {
+    return MainPage(
+      navigationShell: navigationShell,
+    );
+  }
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  static const String $restorationScopeId = 'restorationScopeId';
+}
+
+class BranchAData extends StatefulShellBranchData {
+  const BranchAData();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = tab1NavigatorKey;
+  static const String $restorationScopeId = 'restorationScopeId';
+}
+
+class BranchBData extends StatefulShellBranchData {
+  const BranchBData();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = tab2NavigatorKey;
+  static const String $restorationScopeId = 'restorationScopeId';
+}
+
 class MainPage extends ConsumerWidget {
   const MainPage({
     required this.navigationShell,

@@ -8,24 +8,66 @@ part of 'router.dart';
 
 List<RouteBase> get $appRoutes => [
       $startUpRoute,
-      $mainRoute,
-      $secondRoute,
-      $attentionRoute,
-      $thirdRoute,
     ];
 
 RouteBase get $startUpRoute => GoRouteData.$route(
-      path: '/start_up',
-      name: 'start_up_page',
+      path: '/',
       parentNavigatorKey: StartUpRoute.$parentNavigatorKey,
       factory: $StartUpRouteExtension._fromState,
+      routes: [
+        StatefulShellRouteData.$route(
+          parentNavigatorKey: MainRoute.$parentNavigatorKey,
+          restorationScopeId: MainRoute.$restorationScopeId,
+          factory: $MainRouteExtension._fromState,
+          branches: [
+            StatefulShellBranchData.$branch(
+              navigatorKey: BranchAData.$navigatorKey,
+              restorationScopeId: BranchAData.$restorationScopeId,
+              routes: [
+                GoRouteData.$route(
+                  path: 'tab1_page',
+                  name: 'tab1_page',
+                  factory: $Tab1RouteExtension._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              navigatorKey: BranchBData.$navigatorKey,
+              restorationScopeId: BranchBData.$restorationScopeId,
+              routes: [
+                GoRouteData.$route(
+                  path: 'tab2_page',
+                  name: 'tab2_page',
+                  factory: $Tab2RouteExtension._fromState,
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRouteData.$route(
+          path: 'second_page',
+          name: 'second_page',
+          factory: $SecondRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'third_page',
+          name: 'third_page',
+          factory: $ThirdRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'attention_page',
+          name: 'attention_page',
+          parentNavigatorKey: AttentionRoute.$parentNavigatorKey,
+          factory: $AttentionRouteExtension._fromState,
+        ),
+      ],
     );
 
 extension $StartUpRouteExtension on StartUpRoute {
   static StartUpRoute _fromState(GoRouterState state) => const StartUpRoute();
 
   String get location => GoRouteData.$location(
-        '/start_up',
+        '/',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -37,36 +79,6 @@ extension $StartUpRouteExtension on StartUpRoute {
 
   void replace(BuildContext context) => context.replace(location);
 }
-
-RouteBase get $mainRoute => StatefulShellRouteData.$route(
-      parentNavigatorKey: MainRoute.$parentNavigatorKey,
-      restorationScopeId: MainRoute.$restorationScopeId,
-      factory: $MainRouteExtension._fromState,
-      branches: [
-        StatefulShellBranchData.$branch(
-          navigatorKey: BranchAData.$navigatorKey,
-          restorationScopeId: BranchAData.$restorationScopeId,
-          routes: [
-            GoRouteData.$route(
-              path: '/tab1_page',
-              name: 'tab1_page',
-              factory: $Tab1RouteExtension._fromState,
-            ),
-          ],
-        ),
-        StatefulShellBranchData.$branch(
-          navigatorKey: BranchBData.$navigatorKey,
-          restorationScopeId: BranchBData.$restorationScopeId,
-          routes: [
-            GoRouteData.$route(
-              path: '/tab2_page',
-              name: 'tab2_page',
-              factory: $Tab2RouteExtension._fromState,
-            ),
-          ],
-        ),
-      ],
-    );
 
 extension $MainRouteExtension on MainRoute {
   static MainRoute _fromState(GoRouterState state) => const MainRoute();
@@ -106,12 +118,6 @@ extension $Tab2RouteExtension on Tab2Route {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $secondRoute => GoRouteData.$route(
-      path: '/second_page',
-      name: 'second_page',
-      factory: $SecondRouteExtension._fromState,
-    );
-
 extension $SecondRouteExtension on SecondRoute {
   static SecondRoute _fromState(GoRouterState state) => SecondRoute(
         title: state.uri.queryParameters['title'],
@@ -134,19 +140,11 @@ extension $SecondRouteExtension on SecondRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $attentionRoute => GoRouteData.$route(
-      path: '/attention_page',
-      name: 'attention_page',
-      parentNavigatorKey: AttentionRoute.$parentNavigatorKey,
-      factory: $AttentionRouteExtension._fromState,
-    );
-
-extension $AttentionRouteExtension on AttentionRoute {
-  static AttentionRoute _fromState(GoRouterState state) =>
-      const AttentionRoute();
+extension $ThirdRouteExtension on ThirdRoute {
+  static ThirdRoute _fromState(GoRouterState state) => const ThirdRoute();
 
   String get location => GoRouteData.$location(
-        '/attention_page',
+        '/third_page',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -159,17 +157,12 @@ extension $AttentionRouteExtension on AttentionRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $thirdRoute => GoRouteData.$route(
-      path: '/third_page',
-      name: 'third_page',
-      factory: $ThirdRouteExtension._fromState,
-    );
-
-extension $ThirdRouteExtension on ThirdRoute {
-  static ThirdRoute _fromState(GoRouterState state) => const ThirdRoute();
+extension $AttentionRouteExtension on AttentionRoute {
+  static AttentionRoute _fromState(GoRouterState state) =>
+      const AttentionRoute();
 
   String get location => GoRouteData.$location(
-        '/third_page',
+        '/attention_page',
       );
 
   void go(BuildContext context) => context.go(location);

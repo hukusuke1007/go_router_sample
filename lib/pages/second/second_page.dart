@@ -5,7 +5,19 @@ import 'package:go_router_sample/pages/third/third_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Page
+class SecondRoute extends GoRouteData {
+  const SecondRoute({
+    this.title,
+  });
+
+  final String? title;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return SecondPage(title: title ?? '');
+  }
+}
+
 class SecondPage extends ConsumerWidget {
   const SecondPage({
     required this.title,

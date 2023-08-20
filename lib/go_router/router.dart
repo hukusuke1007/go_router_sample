@@ -18,8 +18,44 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
 final tab1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tab1');
 final tab2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tab2');
 
-/// StartUpRoute
-@TypedGoRoute<StartUpRoute>(path: '/start_up', name: 'start_up_page')
+/// TypedGoRoute
+@TypedGoRoute<StartUpRoute>(
+  path: '/',
+  routes: [
+    TypedStatefulShellRoute<MainRoute>(
+      branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
+        TypedStatefulShellBranch<BranchAData>(
+          routes: <TypedRoute<RouteData>>[
+            TypedGoRoute<Tab1Route>(
+              path: 'tab1_page',
+              name: 'tab1_page',
+            ),
+          ],
+        ),
+        TypedStatefulShellBranch<BranchBData>(
+          routes: <TypedRoute<RouteData>>[
+            TypedGoRoute<Tab2Route>(
+              path: 'tab2_page',
+              name: 'tab2_page',
+            ),
+          ],
+        ),
+      ],
+    ),
+    TypedGoRoute<SecondRoute>(
+      path: 'second_page',
+      name: 'second_page',
+    ),
+    TypedGoRoute<ThirdRoute>(
+      path: 'third_page',
+      name: 'third_page',
+    ),
+    TypedGoRoute<AttentionRoute>(
+      path: 'attention_page',
+      name: 'attention_page',
+    ),
+  ],
+)
 class StartUpRoute extends GoRouteData {
   const StartUpRoute();
 
@@ -30,114 +66,12 @@ class StartUpRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
 }
 
-/// TypedStatefulShellRoute
-@TypedStatefulShellRoute<MainRoute>(
-  branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
-    TypedStatefulShellBranch<BranchAData>(
-      routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<Tab1Route>(
-          path: '/tab1_page',
-          name: 'tab1_page',
-        ),
-      ],
-    ),
-    TypedStatefulShellBranch<BranchBData>(
-      routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<Tab2Route>(
-          path: '/tab2_page',
-          name: 'tab2_page',
-        ),
-      ],
-    ),
-  ],
-)
-class MainRoute extends StatefulShellRouteData {
-  const MainRoute();
-
-  @override
-  Widget builder(
-    BuildContext context,
-    GoRouterState state,
-    StatefulNavigationShell navigationShell,
-  ) {
-    return MainPage(
-      navigationShell: navigationShell,
-    );
-  }
-
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  static const String $restorationScopeId = 'restorationScopeId';
-}
-
-class BranchAData extends StatefulShellBranchData {
-  const BranchAData();
-
-  static final GlobalKey<NavigatorState> $navigatorKey = tab1NavigatorKey;
-  static const String $restorationScopeId = 'restorationScopeId';
-}
-
-class BranchBData extends StatefulShellBranchData {
-  const BranchBData();
-
-  static final GlobalKey<NavigatorState> $navigatorKey = tab2NavigatorKey;
-  static const String $restorationScopeId = 'restorationScopeId';
-}
-
-/// SecondRoute
-@TypedGoRoute<SecondRoute>(
-  path: '/second_page',
-  name: 'second_page',
-)
-class SecondRoute extends GoRouteData {
-  const SecondRoute({
-    this.title,
-  });
-
-  final String? title;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return SecondPage(title: title ?? '');
-  }
-}
-
-/// AttentionRoute
-@TypedGoRoute<AttentionRoute>(
-  path: '/attention_page',
-  name: 'attention_page',
-)
-class AttentionRoute extends GoRouteData {
-  const AttentionRoute();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      const CupertinoPage(
-        fullscreenDialog: true,
-        child: AttentionPage(),
-      );
-
-  // Root表示するためにKeyを設定する
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-}
-
-/// ThirdRoute
-@TypedGoRoute<ThirdRoute>(
-  path: '/third_page',
-  name: 'third_page',
-)
-class ThirdRoute extends GoRouteData {
-  const ThirdRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) => const ThirdPage();
-}
-
 /// Router
 final routerProvider = Provider(
   (ref) {
     return GoRouter(
       routes: $appRoutes,
-      initialLocation: '/start_up',
+      initialLocation: '/',
       navigatorKey: rootNavigatorKey,
       debugLogDiagnostics: kDebugMode,
       errorBuilder: (context, state) =>

@@ -5,7 +5,13 @@ import 'package:go_router_sample/pages/main/main_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Page
+class ThirdRoute extends GoRouteData {
+  const ThirdRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const ThirdPage();
+}
+
 class ThirdPage extends ConsumerWidget {
   const ThirdPage({
     super.key,

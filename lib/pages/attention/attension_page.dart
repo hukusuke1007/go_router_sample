@@ -1,6 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/go_router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+class AttentionRoute extends GoRouteData {
+  const AttentionRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      const CupertinoPage(
+        fullscreenDialog: true,
+        child: AttentionPage(),
+      );
+
+  // Root表示するためにKeyを設定する
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+}
 
 class AttentionPage extends ConsumerWidget {
   const AttentionPage({
