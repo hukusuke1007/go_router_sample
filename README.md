@@ -18,6 +18,11 @@
 
 [go_router_builder](https://pub.dev/packages/go_router_builder)
 
-[gorouter.dev](https://gorouter.dev/)
+[documentation](https://pub.dev/documentation/go_router/latest/topics/Get%20started-topic.html)
 
-[go_router 公式ドキュメント日本語版の目次](https://zenn.dev/inari_sushio/scraps/01ef7604a4b934)
+### Sample Code
+[go_router - stateful_shell_route_example](https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart)
+
+[go_router_builder - stateful_shell_route_example](https://github.com/flutter/packages/blob/main/packages/go_router_builder/example/lib/stateful_shell_route_example.dart)
+
+

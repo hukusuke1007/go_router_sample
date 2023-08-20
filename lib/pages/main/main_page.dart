@@ -1,52 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/tab/tab1_page.dart';
-import 'package:go_router_sample/pages/tab/tab2_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MainPage extends ConsumerWidget {
   const MainPage({
+    required this.navigationShell,
+    // required this.children,
     super.key,
   });
 
-  static Future<void> go(BuildContext context) async {
-    return const MainRoute().go(context);
-  }
+  final StatefulNavigationShell navigationShell;
+  // final List<Widget> children;
 
-  static final selectedTabIndexStateProvider =
-      StateProvider.autoDispose((ref) => 0);
+  static Future<void> go(BuildContext context) async {
+    return const Tab1Route().go(context);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedTabIndex = ref.watch(selectedTabIndexStateProvider);
-
     return Scaffold(
-      body: IndexedStack(
-        index: selectedTabIndex,
-        children: const [
-          Tab1Page(),
-          Tab2Page(),
-        ],
-      ),
+      body: navigationShell,
+      // body: IndexedStack(
+      //   index: navigationShell.currentIndex,
+      //   children: children,
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'タブ1',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.star),
-            label: 'タブ2',
-            tooltip: '',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'タブ1'),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'タブ2'),
         ],
         type: BottomNavigationBarType.fixed,
-        currentIndex: selectedTabIndex,
+        currentIndex: navigationShell.currentIndex,
         onTap: (index) {
-          ref.read(selectedTabIndexStateProvider.notifier).update(
-                (state) => index,
-              );
+          print(index);
+          navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
+          );
         },
       ),
     );

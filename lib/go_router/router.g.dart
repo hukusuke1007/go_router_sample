@@ -7,47 +7,25 @@ part of 'router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
+      $startUpRoute,
       $mainRoute,
+      $secondRoute,
+      $secondModalRoute,
+      $thirdRoute,
     ];
 
-RouteBase get $mainRoute => GoRouteData.$route(
-      path: '/',
-      name: 'main_page',
-      factory: $MainRouteExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: 'tab1_page',
-          name: 'tab1_page',
-          factory: $Tab1RouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'tab2_page',
-          name: 'tab2_page',
-          factory: $Tab2RouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'second_page/:title',
-          name: 'second_page',
-          factory: $SecondRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'second_page_with_modal/:title',
-          name: 'second_page_with_modal',
-          factory: $SecondRouteModalExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'third_page',
-          name: 'third_page',
-          factory: $ThirdRouteExtension._fromState,
-        ),
-      ],
+RouteBase get $startUpRoute => GoRouteData.$route(
+      path: '/start_up',
+      name: 'start_up_page',
+      parentNavigatorKey: StartUpRoute.$parentNavigatorKey,
+      factory: $StartUpRouteExtension._fromState,
     );
 
-extension $MainRouteExtension on MainRoute {
-  static MainRoute _fromState(GoRouterState state) => const MainRoute();
+extension $StartUpRouteExtension on StartUpRoute {
+  static StartUpRoute _fromState(GoRouterState state) => const StartUpRoute();
 
   String get location => GoRouteData.$location(
-        '/',
+        '/start_up',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -58,6 +36,40 @@ extension $MainRouteExtension on MainRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $mainRoute => StatefulShellRouteData.$route(
+      parentNavigatorKey: MainRoute.$parentNavigatorKey,
+      restorationScopeId: MainRoute.$restorationScopeId,
+      factory: $MainRouteExtension._fromState,
+      branches: [
+        StatefulShellBranchData.$branch(
+          navigatorKey: BranchAData.$navigatorKey,
+          restorationScopeId: BranchAData.$restorationScopeId,
+          routes: [
+            GoRouteData.$route(
+              path: '/tab1_page',
+              name: 'tab1_page',
+              factory: $Tab1RouteExtension._fromState,
+            ),
+          ],
+        ),
+        StatefulShellBranchData.$branch(
+          navigatorKey: BranchBData.$navigatorKey,
+          restorationScopeId: BranchBData.$restorationScopeId,
+          routes: [
+            GoRouteData.$route(
+              path: '/tab2_page',
+              name: 'tab2_page',
+              factory: $Tab2RouteExtension._fromState,
+            ),
+          ],
+        ),
+      ],
+    );
+
+extension $MainRouteExtension on MainRoute {
+  static MainRoute _fromState(GoRouterState state) => const MainRoute();
 }
 
 extension $Tab1RouteExtension on Tab1Route {
@@ -94,13 +106,22 @@ extension $Tab2RouteExtension on Tab2Route {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $secondRoute => GoRouteData.$route(
+      path: '/second_page',
+      name: 'second_page',
+      factory: $SecondRouteExtension._fromState,
+    );
+
 extension $SecondRouteExtension on SecondRoute {
   static SecondRoute _fromState(GoRouterState state) => SecondRoute(
-        title: state.pathParameters['title']!,
+        title: state.uri.queryParameters['title']!,
       );
 
   String get location => GoRouteData.$location(
-        '/second_page/${Uri.encodeComponent(title)}',
+        '/second_page',
+        queryParams: {
+          'title': title,
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -113,13 +134,23 @@ extension $SecondRouteExtension on SecondRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $SecondRouteModalExtension on SecondRouteModal {
-  static SecondRouteModal _fromState(GoRouterState state) => SecondRouteModal(
-        title: state.pathParameters['title']!,
+RouteBase get $secondModalRoute => GoRouteData.$route(
+      path: '/second_page_with_modal',
+      name: 'second_page_with_modal',
+      parentNavigatorKey: SecondModalRoute.$parentNavigatorKey,
+      factory: $SecondModalRouteExtension._fromState,
+    );
+
+extension $SecondModalRouteExtension on SecondModalRoute {
+  static SecondModalRoute _fromState(GoRouterState state) => SecondModalRoute(
+        title: state.uri.queryParameters['title']!,
       );
 
   String get location => GoRouteData.$location(
-        '/second_page_with_modal/${Uri.encodeComponent(title)}',
+        '/second_page_with_modal',
+        queryParams: {
+          'title': title,
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -131,6 +162,12 @@ extension $SecondRouteModalExtension on SecondRouteModal {
 
   void replace(BuildContext context) => context.replace(location);
 }
+
+RouteBase get $thirdRoute => GoRouteData.$route(
+      path: '/third_page',
+      name: 'third_page',
+      factory: $ThirdRouteExtension._fromState,
+    );
 
 extension $ThirdRouteExtension on ThirdRoute {
   static ThirdRoute _fromState(GoRouterState state) => const ThirdRoute();

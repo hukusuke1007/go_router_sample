@@ -1,38 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/third/third_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-/// Route
-class SecondRoute extends GoRouteData {
-  const SecondRoute({
-    required this.title,
-  });
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      SecondPage(title: title);
-}
-
-class SecondRouteModal extends GoRouteData {
-  const SecondRouteModal({
-    required this.title,
-  });
-
-  final String title;
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      CupertinoPage(
-        fullscreenDialog: true,
-        child: SecondPage(title: title),
-      );
-}
 
 /// Page
 class SecondPage extends ConsumerWidget {
@@ -48,7 +18,7 @@ class SecondPage extends ConsumerWidget {
   }
 
   static Future<void> pushWithModal(BuildContext context, String title) async {
-    return SecondRouteModal(title: title).push<void>(context);
+    return SecondModalRoute(title: title).push<void>(context);
   }
 
   static final countProvider = StateProvider.autoDispose((ref) => 0);
@@ -58,7 +28,7 @@ class SecondPage extends ConsumerWidget {
     final count = ref.watch(countProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title - ページ2 '),
+        title: Text('$title - ページ2'),
         backgroundColor: Colors.indigo,
       ),
       body: Center(

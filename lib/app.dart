@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router_sample/go_router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class App extends HookConsumerWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
@@ -23,9 +23,7 @@ class App extends HookConsumerWidget {
           },
         ),
       ),
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-      routeInformationProvider: router.routeInformationProvider,
+      routerConfig: router,
     );
   }
 }
