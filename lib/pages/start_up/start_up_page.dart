@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router_sample/go_router/current_route.dart';
 import 'package:go_router_sample/pages/main/main_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +11,9 @@ class StartUpPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /// currentRouteを活性化させる
+    ref.watch(currentRouteProvider);
+
     return Scaffold(
       body: Center(
         child: RoundedButton(

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/transition_observer.dart';
 import 'package:go_router_sample/pages/attention/attension_page.dart';
 import 'package:go_router_sample/pages/error/error_page.dart';
 import 'package:go_router_sample/pages/main/main_page.dart';
@@ -136,15 +135,17 @@ class ThirdRoute extends GoRouteData {
 /// Router
 final routerProvider = Provider(
   (ref) {
-    final transitionObserver = TransitionObserver();
     return GoRouter(
       routes: $appRoutes,
       initialLocation: '/start_up',
       navigatorKey: rootNavigatorKey,
-      observers: [transitionObserver],
       debugLogDiagnostics: kDebugMode,
       errorBuilder: (context, state) =>
           ErrorRoute(error: state.error!).build(context, state),
+      redirect: (context, state) {
+        final goLocation = state.matchedLocation;
+        return goLocation;
+      },
     );
   },
 );
