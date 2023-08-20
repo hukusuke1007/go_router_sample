@@ -107,21 +107,18 @@ extension $Tab2RouteExtension on Tab2Route {
 }
 
 RouteBase get $secondRoute => GoRouteData.$route(
-      path: '/second_page',
+      path: '/second_page/:title',
       name: 'second_page',
       factory: $SecondRouteExtension._fromState,
     );
 
 extension $SecondRouteExtension on SecondRoute {
   static SecondRoute _fromState(GoRouterState state) => SecondRoute(
-        title: state.uri.queryParameters['title']!,
+        title: state.pathParameters['title']!,
       );
 
   String get location => GoRouteData.$location(
-        '/second_page',
-        queryParams: {
-          'title': title,
-        },
+        '/second_page/${Uri.encodeComponent(title)}',
       );
 
   void go(BuildContext context) => context.go(location);

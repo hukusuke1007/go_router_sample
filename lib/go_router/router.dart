@@ -73,19 +73,19 @@ class BranchAData extends StatefulShellBranchData {
   const BranchAData();
 
   static final GlobalKey<NavigatorState> $navigatorKey = tab1NavigatorKey;
-  static const String $restorationScopeId = 'restorationScopeIdA';
+  static const String $restorationScopeId = 'restorationScopeId';
 }
 
 class BranchBData extends StatefulShellBranchData {
   const BranchBData();
 
   static final GlobalKey<NavigatorState> $navigatorKey = tab2NavigatorKey;
-  static const String $restorationScopeId = 'restorationScopeIdB';
+  static const String $restorationScopeId = 'restorationScopeId';
 }
 
 /// SecondRoute
 @TypedGoRoute<SecondRoute>(
-  path: '/second_page',
+  path: '/second_page/:title',
   name: 'second_page',
 )
 class SecondRoute extends GoRouteData {
@@ -96,8 +96,9 @@ class SecondRoute extends GoRouteData {
   final String title;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      SecondPage(title: title);
+  Widget build(BuildContext context, GoRouterState state) {
+    return SecondPage(title: title);
+  }
 }
 
 /// SecondModalRoute

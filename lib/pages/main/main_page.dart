@@ -7,12 +7,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class MainPage extends ConsumerWidget {
   const MainPage({
     required this.navigationShell,
-    // required this.children,
     super.key,
   });
 
   final StatefulNavigationShell navigationShell;
-  // final List<Widget> children;
 
   static Future<void> go(BuildContext context) async {
     return const Tab1Route().go(context);
@@ -22,10 +20,6 @@ class MainPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: navigationShell,
-      // body: IndexedStack(
-      //   index: navigationShell.currentIndex,
-      //   children: children,
-      // ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'タブ1'),
@@ -34,7 +28,6 @@ class MainPage extends ConsumerWidget {
         type: BottomNavigationBarType.fixed,
         currentIndex: navigationShell.currentIndex,
         onTap: (index) {
-          print(index);
           navigationShell.goBranch(
             index,
             initialLocation: index == navigationShell.currentIndex,
