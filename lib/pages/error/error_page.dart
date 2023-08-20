@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 
-/// ErrorRoute
+/// Route
 class ErrorRoute extends GoRouteData {
   ErrorRoute({required this.error});
   final Exception error;
@@ -13,7 +12,8 @@ class ErrorRoute extends GoRouteData {
       ErrorPage(error: error);
 }
 
-class ErrorPage extends HookWidget {
+/// Page
+class ErrorPage extends StatelessWidget {
   const ErrorPage({
     required this.error,
     super.key,

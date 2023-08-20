@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/pages/second_page.dart';
+import 'package:go_router_sample/pages/second/second_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Tab2Route
+/// Route
 class Tab2Route extends GoRouteData {
   const Tab2Route();
 

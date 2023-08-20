@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/go_router/transition_observer.dart';
-import 'package:go_router_sample/pages/error_page.dart';
-import 'package:go_router_sample/pages/main_page.dart';
-import 'package:go_router_sample/pages/second_page.dart';
-import 'package:go_router_sample/pages/tab1_page.dart';
-import 'package:go_router_sample/pages/tab2_page.dart';
-import 'package:go_router_sample/pages/third_page.dart';
+import 'package:go_router_sample/pages/error/error_page.dart';
+import 'package:go_router_sample/pages/main/main_page.dart';
+import 'package:go_router_sample/pages/second/second_page.dart';
+import 'package:go_router_sample/pages/tab/tab1_page.dart';
+import 'package:go_router_sample/pages/tab/tab2_page.dart';
+import 'package:go_router_sample/pages/third/third_page.dart';
 import 'package:go_router_sample/utils/provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

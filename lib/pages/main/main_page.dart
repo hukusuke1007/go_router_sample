@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router_sample/go_router/router.dart';
-import 'package:go_router_sample/pages/tab1_page.dart';
-import 'package:go_router_sample/pages/tab2_page.dart';
+import 'package:go_router_sample/pages/tab/tab1_page.dart';
+import 'package:go_router_sample/pages/tab/tab2_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MainPage extends ConsumerWidget {

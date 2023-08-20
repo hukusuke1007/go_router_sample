@@ -1,70 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/router.dart';
-import 'package:go_router_sample/pages/main_page.dart';
+import 'package:go_router_sample/pages/second/second_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// FirstRoute
-class ThirdRoute extends GoRouteData {
-  const ThirdRoute();
+/// Route
+class Tab1Route extends GoRouteData {
+  const Tab1Route();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const ThirdPage();
+  Widget build(BuildContext context, GoRouterState state) => const Tab1Page();
 }
 
 /// Page
-class ThirdPage extends ConsumerWidget {
-  const ThirdPage({
+class Tab1Page extends ConsumerWidget {
+  const Tab1Page({
     super.key,
   });
 
   static final countProvider = StateProvider.autoDispose((ref) => 0);
-
-  static Future<void> push(BuildContext context) async {
-    return const ThirdRoute().push(context);
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(countProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ページ3'),
-        backgroundColor: Colors.deepOrange,
+        title: const Text('タブ1'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'ThirdPage: $count',
+              'Tab1Page: $count',
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: RoundedButton(
-                width: 120,
+                width: 200,
                 height: 40,
                 child: const Text(
-                  'Go Back',
+                  'Go SecondPage',
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.pop();
+                  SecondPage.push(context, 'タブ1');
                 },
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: RoundedButton(
-                width: 120,
+                width: 200,
                 height: 40,
                 child: const Text(
-                  'Go Root',
+                  'Go Modal',
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  MainPage.go(context);
+                  SecondPage.pushWithModal(context, 'タブ1');
                 },
               ),
             ),
