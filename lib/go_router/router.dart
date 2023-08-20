@@ -142,10 +142,9 @@ final routerProvider = Provider(
       debugLogDiagnostics: kDebugMode,
       errorBuilder: (context, state) =>
           ErrorRoute(error: state.error!).build(context, state),
-      redirect: (context, state) {
-        final goLocation = state.matchedLocation;
-        return goLocation;
-      },
+      // redirect: (context, state) {
+      //   return state.uri.toString();
+      // },
     );
   },
 );
