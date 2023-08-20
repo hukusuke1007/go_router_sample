@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/go_router/transition_observer.dart';
+import 'package:go_router_sample/pages/attention/attension_page.dart';
 import 'package:go_router_sample/pages/error/error_page.dart';
 import 'package:go_router_sample/pages/main/main_page.dart';
 import 'package:go_router_sample/pages/second/second_page.dart';
@@ -85,39 +86,35 @@ class BranchBData extends StatefulShellBranchData {
 
 /// SecondRoute
 @TypedGoRoute<SecondRoute>(
-  path: '/second_page/:title',
+  path: '/second_page',
   name: 'second_page',
 )
 class SecondRoute extends GoRouteData {
   const SecondRoute({
-    required this.title,
+    this.title,
   });
 
-  final String title;
+  final String? title;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return SecondPage(title: title);
+    return SecondPage(title: title ?? '');
   }
 }
 
-/// SecondModalRoute
-@TypedGoRoute<SecondModalRoute>(
-  path: '/second_page_with_modal',
-  name: 'second_page_with_modal',
+/// AttentionRoute
+@TypedGoRoute<AttentionRoute>(
+  path: '/attention_page',
+  name: 'attention_page',
 )
-class SecondModalRoute extends GoRouteData {
-  const SecondModalRoute({
-    required this.title,
-  });
-
-  final String title;
+class AttentionRoute extends GoRouteData {
+  const AttentionRoute();
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      CupertinoPage(
+      const CupertinoPage(
         fullscreenDialog: true,
-        child: SecondPage(title: title),
+        child: AttentionPage(),
       );
 
   // Root表示するためにKeyを設定する

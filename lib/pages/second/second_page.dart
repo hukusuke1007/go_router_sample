@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/third/third_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
@@ -17,8 +18,8 @@ class SecondPage extends ConsumerWidget {
     return SecondRoute(title: title).push<void>(context);
   }
 
-  static Future<void> pushWithModal(BuildContext context, String title) async {
-    return SecondModalRoute(title: title).push<void>(context);
+  static Future<void> pushWithUrl(BuildContext context, String title) async {
+    return context.push<void>('/second_page?title=$title');
   }
 
   static final countProvider = StateProvider.autoDispose((ref) => 0);

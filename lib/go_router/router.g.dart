@@ -10,7 +10,7 @@ List<RouteBase> get $appRoutes => [
       $startUpRoute,
       $mainRoute,
       $secondRoute,
-      $secondModalRoute,
+      $attentionRoute,
       $thirdRoute,
     ];
 
@@ -107,18 +107,21 @@ extension $Tab2RouteExtension on Tab2Route {
 }
 
 RouteBase get $secondRoute => GoRouteData.$route(
-      path: '/second_page/:title',
+      path: '/second_page',
       name: 'second_page',
       factory: $SecondRouteExtension._fromState,
     );
 
 extension $SecondRouteExtension on SecondRoute {
   static SecondRoute _fromState(GoRouterState state) => SecondRoute(
-        title: state.pathParameters['title']!,
+        title: state.uri.queryParameters['title'],
       );
 
   String get location => GoRouteData.$location(
-        '/second_page/${Uri.encodeComponent(title)}',
+        '/second_page',
+        queryParams: {
+          if (title != null) 'title': title,
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -131,23 +134,19 @@ extension $SecondRouteExtension on SecondRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $secondModalRoute => GoRouteData.$route(
-      path: '/second_page_with_modal',
-      name: 'second_page_with_modal',
-      parentNavigatorKey: SecondModalRoute.$parentNavigatorKey,
-      factory: $SecondModalRouteExtension._fromState,
+RouteBase get $attentionRoute => GoRouteData.$route(
+      path: '/attention_page',
+      name: 'attention_page',
+      parentNavigatorKey: AttentionRoute.$parentNavigatorKey,
+      factory: $AttentionRouteExtension._fromState,
     );
 
-extension $SecondModalRouteExtension on SecondModalRoute {
-  static SecondModalRoute _fromState(GoRouterState state) => SecondModalRoute(
-        title: state.uri.queryParameters['title']!,
-      );
+extension $AttentionRouteExtension on AttentionRoute {
+  static AttentionRoute _fromState(GoRouterState state) =>
+      const AttentionRoute();
 
   String get location => GoRouteData.$location(
-        '/second_page_with_modal',
-        queryParams: {
-          'title': title,
-        },
+        '/attention_page',
       );
 
   void go(BuildContext context) => context.go(location);

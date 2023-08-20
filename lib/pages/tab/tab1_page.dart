@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:go_router_sample/pages/attention/attension_page.dart';
 import 'package:go_router_sample/pages/second/second_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,7 +59,7 @@ class Tab1Page extends ConsumerWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  SecondPage.pushWithModal(context, 'タブ1');
+                  AttentionPage.push(context);
                 },
               ),
             ),
