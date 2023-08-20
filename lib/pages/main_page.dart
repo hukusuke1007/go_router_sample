@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router_sample/pages/first_page.dart';
+import 'package:go_router_sample/go_router/router.dart';
+import 'package:go_router_sample/pages/tab1_page.dart';
+import 'package:go_router_sample/pages/tab2_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MainPage extends HookConsumerWidget {
+class MainPage extends ConsumerWidget {
   const MainPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
-  static String get pageName => 'main_page';
-  static String get pagePath => '/';
+  static Future<void> go(BuildContext context) async {
+    return const MainRoute().go(context);
+  }
+
+  static final selectedTabIndexStateProvider =
+      StateProvider.autoDispose((ref) => 0);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageViewController = usePageController();
-    final selectedIndexState = useState(0);
+    final selectedTabIndex = ref.watch(selectedTabIndexStateProvider);
 
     return Scaffold(
-      body: PageView(
-        controller: pageViewController,
-        physics: const NeverScrollableScrollPhysics(),
+      body: IndexedStack(
+        index: selectedTabIndex,
         children: const [
-          FirstPage(
-            title: 'タブ1',
-          ),
-          FirstPage(
-            title: 'タブ2',
-          ),
+          Tab1Page(),
+          Tab2Page(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -43,10 +42,11 @@ class MainPage extends HookConsumerWidget {
           ),
         ],
         type: BottomNavigationBarType.fixed,
-        currentIndex: selectedIndexState.value,
+        currentIndex: selectedTabIndex,
         onTap: (index) {
-          selectedIndexState.value = index;
-          pageViewController.jumpToPage(index);
+          ref.read(selectedTabIndexStateProvider.notifier).update(
+                (state) => index,
+              );
         },
       ),
     );

@@ -1,55 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/router.dart';
-import 'package:go_router_sample/pages/third_page.dart';
+import 'package:go_router_sample/pages/second_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// SecondRoute
-class SecondRoute extends GoRouteData {
-  const SecondRoute({
-    required this.title,
-  });
-
-  final String title;
+/// Tab2Route
+class Tab2Route extends GoRouteData {
+  const Tab2Route();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      SecondPage(title: title);
-}
-
-class SecondRouteModal extends GoRouteData {
-  const SecondRouteModal({
-    required this.title,
-  });
-
-  final String title;
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      CupertinoPage(
-        fullscreenDialog: true,
-        child: SecondPage(title: title),
-      );
+  Widget build(BuildContext context, GoRouterState state) => const Tab2Page();
 }
 
 /// Page
-class SecondPage extends ConsumerWidget {
-  const SecondPage({
-    required this.title,
+class Tab2Page extends ConsumerWidget {
+  const Tab2Page({
     super.key,
   });
-
-  final String title;
-
-  static Future<void> push(BuildContext context, String title) async {
-    return SecondRoute(title: title).push<void>(context);
-  }
-
-  static Future<void> pushWithModal(BuildContext context, String title) async {
-    return SecondRouteModal(title: title).push<void>(context);
-  }
 
   static final countProvider = StateProvider.autoDispose((ref) => 0);
 
@@ -58,15 +25,14 @@ class SecondPage extends ConsumerWidget {
     final count = ref.watch(countProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title - ページ2 '),
-        backgroundColor: Colors.indigo,
+        title: const Text('タブ2'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'SecondPage: $count',
+              'Tab2Page: $count',
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
@@ -74,11 +40,25 @@ class SecondPage extends ConsumerWidget {
                 width: 200,
                 height: 40,
                 child: const Text(
-                  'Go ThirdPage',
+                  'Go SecondPage',
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  ThirdPage.push(context);
+                  SecondPage.push(context, 'タブ2');
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: RoundedButton(
+                width: 200,
+                height: 40,
+                child: const Text(
+                  'Go Modal',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  SecondPage.pushWithModal(context, 'タブ2');
                 },
               ),
             ),

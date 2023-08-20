@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/main_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ThirdPage extends HookWidget {
-  const ThirdPage({
-    Key? key,
-  }) : super(key: key);
-
-  static String get pageName => 'third_page';
-  static String get pagePath => pageName;
+/// FirstRoute
+class ThirdRoute extends GoRouteData {
+  const ThirdRoute();
 
   @override
-  Widget build(BuildContext context) {
-    final countState = useState(0);
+  Widget build(BuildContext context, GoRouterState state) => const ThirdPage();
+}
+
+/// Page
+class ThirdPage extends ConsumerWidget {
+  const ThirdPage({
+    super.key,
+  });
+
+  static final countProvider = StateProvider.autoDispose((ref) => 0);
+
+  static Future<void> push(BuildContext context) async {
+    return const ThirdRoute().push(context);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final count = ref.watch(countProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'ページ3',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('ページ3'),
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
@@ -28,7 +38,7 @@ class ThirdPage extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'ThirdPage ${countState.value}',
+              'ThirdPage: $count',
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
@@ -54,7 +64,7 @@ class ThirdPage extends HookWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.go(MainPage.pagePath);
+                  MainPage.go(context);
                 },
               ),
             ),
@@ -64,7 +74,7 @@ class ThirdPage extends HookWidget {
       floatingActionButton: FloatingActionButton(
         heroTag: null,
         onPressed: () {
-          countState.value += 1;
+          ref.read(countProvider.notifier).update((state) => count + 1);
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

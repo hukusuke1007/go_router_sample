@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/pages/second_page.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FirstPage extends HookWidget {
-  const FirstPage({
-    required this.title,
-    Key? key,
-  }) : super(key: key);
-
-  final String title;
-
-  static String get pageName => 'first_page';
-  static String get pagePath => '$pageName/:title';
+/// Tab1Route
+class Tab1Route extends GoRouteData {
+  const Tab1Route();
 
   @override
-  Widget build(BuildContext context) {
-    final countState = useState(0);
+  Widget build(BuildContext context, GoRouterState state) => const Tab1Page();
+}
+
+/// Page
+class Tab1Page extends ConsumerWidget {
+  const Tab1Page({
+    super.key,
+  });
+
+  static final countProvider = StateProvider.autoDispose((ref) => 0);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final count = ref.watch(countProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          style: const TextStyle(color: Colors.white),
-        ),
+        title: const Text('タブ1'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'FirstPage ${countState.value}',
+              'Tab1Page: $count',
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
@@ -42,12 +44,7 @@ class FirstPage extends HookWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.pushNamed(
-                    SecondPage.pageName,
-                    extra: SecondPageParams(
-                      '$titleから',
-                    ),
-                  );
+                  SecondPage.push(context, 'タブ1');
                 },
               ),
             ),
@@ -61,10 +58,7 @@ class FirstPage extends HookWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
-                  context.pushNamed(
-                    SecondPage.modalPageName,
-                    params: {'title': '$titleからモーダル表示'},
-                  );
+                  SecondPage.pushWithModal(context, 'タブ1');
                 },
               ),
             ),
@@ -74,7 +68,7 @@ class FirstPage extends HookWidget {
       floatingActionButton: FloatingActionButton(
         heroTag: null,
         onPressed: () {
-          countState.value += 1;
+          ref.read(countProvider.notifier).update((state) => count + 1);
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
