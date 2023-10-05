@@ -56,6 +56,8 @@ final tab2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tab2');
     ),
   ],
 )
+
+/// StartUpRoute
 class StartUpRoute extends GoRouteData {
   const StartUpRoute();
 

@@ -14,7 +14,7 @@ dependencies:
   flutter_hooks:
   hooks_riverpod:
   freezed_annotation:
-  go_router: ^10.1.0
+  go_router: ^11.1.2
 
   cupertino_icons: ^1.0.2
 
@@ -26,7 +26,7 @@ dev_dependencies:
   json_serializable:
   build_runner:
   freezed:
-  go_router_builder: ^2.3.0
+  go_router_builder: ^2.3.3
 
 flutter:
   uses-material-design: true
