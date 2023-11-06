@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/go_router/router.dart';
+import 'package:go_router_sample/pages/attention/attension_detail_page.dart';
+import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AttentionRoute extends GoRouteData {
@@ -43,6 +45,20 @@ class AttentionPage extends ConsumerWidget {
           children: <Widget>[
             Text(
               'AttentionPage: $count',
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: RoundedButton(
+                width: 200,
+                height: 40,
+                child: const Text(
+                  'Detail',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  AttentionDetailPage.push(context);
+                },
+              ),
             ),
           ],
         ),

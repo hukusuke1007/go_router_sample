@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:go_router_sample/pages/attention/attension_detail_page.dart';
 import 'package:go_router_sample/pages/attention/attension_page.dart';
 import 'package:go_router_sample/pages/error/error_page.dart';
 import 'package:go_router_sample/pages/main/main_page.dart';
@@ -21,6 +22,7 @@ final tab2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tab2');
 /// TypedGoRoute
 @TypedGoRoute<StartUpRoute>(
   path: '/',
+  name: 'start_up',
   routes: [
     TypedStatefulShellRoute<MainRoute>(
       branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
@@ -53,6 +55,12 @@ final tab2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tab2');
     TypedGoRoute<AttentionRoute>(
       path: 'attention_page',
       name: 'attention_page',
+      routes: [
+        TypedGoRoute<AttentionDetailRoute>(
+          path: 'attention_detail_page',
+          name: 'attention_detail_page',
+        ),
+      ],
     ),
   ],
 )

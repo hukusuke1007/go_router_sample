@@ -12,6 +12,7 @@ List<RouteBase> get $appRoutes => [
 
 RouteBase get $startUpRoute => GoRouteData.$route(
       path: '/',
+      name: 'start_up',
       parentNavigatorKey: StartUpRoute.$parentNavigatorKey,
       factory: $StartUpRouteExtension._fromState,
       routes: [
@@ -59,6 +60,14 @@ RouteBase get $startUpRoute => GoRouteData.$route(
           name: 'attention_page',
           parentNavigatorKey: AttentionRoute.$parentNavigatorKey,
           factory: $AttentionRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'attention_detail_page',
+              name: 'attention_detail_page',
+              parentNavigatorKey: AttentionDetailRoute.$parentNavigatorKey,
+              factory: $AttentionDetailRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     );
@@ -163,6 +172,24 @@ extension $AttentionRouteExtension on AttentionRoute {
 
   String get location => GoRouteData.$location(
         '/attention_page',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $AttentionDetailRouteExtension on AttentionDetailRoute {
+  static AttentionDetailRoute _fromState(GoRouterState state) =>
+      const AttentionDetailRoute();
+
+  String get location => GoRouteData.$location(
+        '/attention_page/attention_detail_page',
       );
 
   void go(BuildContext context) => context.go(location);
