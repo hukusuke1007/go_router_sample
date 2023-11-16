@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/main/main_page.dart';
+import 'package:go_router_sample/router/router.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,10 +27,7 @@ class ThirdPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(countProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ページ3'),
-        backgroundColor: Colors.deepOrange,
-      ),
+      appBar: AppBar(title: const Text('ページ3')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

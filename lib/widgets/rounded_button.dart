@@ -6,22 +6,28 @@ class RoundedButton extends StatelessWidget {
     this.height,
     this.width,
     required this.child,
-    this.color,
-    this.elevation = 0,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.disableColor,
+    this.elevation,
     this.side = BorderSide.none,
     this.isLoading = false,
     this.onTap,
+    this.statesController,
     super.key,
   });
 
   final double? height;
   final double? width;
   final Widget child;
-  final Color? color;
-  final double elevation;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Color? disableColor;
+  final double? elevation;
   final BorderSide side;
   final bool isLoading;
   final VoidCallback? onTap;
+  final MaterialStatesController? statesController;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +36,14 @@ class RoundedButton extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: color,
+          backgroundColor: backgroundColor ?? Colors.purpleAccent,
+          foregroundColor: foregroundColor,
           shape: const StadiumBorder().copyWith(side: side),
-          onPrimary: Colors.grey,
+          disabledBackgroundColor: disableColor ?? Colors.grey,
           elevation: elevation,
         ),
         onPressed: onTap,
+        statesController: statesController,
         child: isLoading ? const CupertinoActivityIndicator() : child,
       ),
     );

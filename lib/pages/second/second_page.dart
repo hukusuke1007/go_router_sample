@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/third/third_page.dart';
+import 'package:go_router_sample/router/router.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SecondRoute extends GoRouteData {
   const SecondRoute({
-    this.title,
+    required this.title,
   });
 
-  final String? title;
+  final String title;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return SecondPage(title: title ?? '');
+    return SecondPage(title: title);
   }
 }
 
@@ -40,10 +40,7 @@ class SecondPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(countProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('$title - ページ2'),
-        backgroundColor: Colors.indigo,
-      ),
+      appBar: AppBar(title: Text('$title - ページ2')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

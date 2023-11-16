@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router_sample/go_router/router.dart';
+import 'package:go_router_sample/router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class App extends ConsumerWidget {

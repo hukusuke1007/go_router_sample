@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/tab/tab1_page.dart';
+import 'package:go_router_sample/router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MainRoute extends StatefulShellRouteData {
@@ -50,9 +50,9 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return WillPopScope(
+    return PopScope(
       /// スワイプバックを禁止する
-      onWillPop: () async => false,
+      canPop: false,
       child: Scaffold(
         body: navigationShell,
         bottomNavigationBar: BottomNavigationBar(

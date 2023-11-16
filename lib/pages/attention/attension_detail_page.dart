@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/router.dart';
+import 'package:go_router_sample/router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AttentionDetailRoute extends GoRouteData {
@@ -27,10 +27,7 @@ class AttentionDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AttentionDetailPage'),
-        backgroundColor: Colors.indigo,
-      ),
+      appBar: AppBar(title: const Text('AttentionDetailPage')),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

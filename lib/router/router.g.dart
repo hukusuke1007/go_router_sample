@@ -129,13 +129,13 @@ extension $Tab2RouteExtension on Tab2Route {
 
 extension $SecondRouteExtension on SecondRoute {
   static SecondRoute _fromState(GoRouterState state) => SecondRoute(
-        title: state.uri.queryParameters['title'],
+        title: state.uri.queryParameters['title']!,
       );
 
   String get location => GoRouteData.$location(
         '/second_page',
         queryParams: {
-          if (title != null) 'title': title,
+          'title': title,
         },
       );
 

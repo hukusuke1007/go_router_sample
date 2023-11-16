@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/router.dart';
 import 'package:go_router_sample/pages/attention/attension_detail_page.dart';
+import 'package:go_router_sample/router/router.dart';
 import 'package:go_router_sample/widgets/rounded_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -35,10 +35,7 @@ class AttentionPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(countProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AttentionPage'),
-        backgroundColor: Colors.indigo,
-      ),
+      appBar: AppBar(title: const Text('AttentionPage')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
